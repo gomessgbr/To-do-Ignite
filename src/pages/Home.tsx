@@ -4,6 +4,7 @@ import { Alert, StyleSheet, View } from "react-native";
 import { Header } from "../components/Header";
 import { Task, TasksList } from "../components/TasksList";
 import { TodoInput } from "../components/TodoInput";
+
 export type EditTaskArgs = {
   taskId: number;
   taskNewTitle: string;
@@ -15,7 +16,7 @@ export function Home() {
   function handleAddTask(newTaskTitle: string) {
     const foundedSameTask = tasks.find((task) => newTaskTitle === task.title);
     if (foundedSameTask) {
-      Alert.alert(
+      return Alert.alert(
         "Task já cadastrada",
         "Você não pode cadastrar uma task com o mesmo nome"
       );

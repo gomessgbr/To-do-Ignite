@@ -56,13 +56,9 @@ export function TaskItem({
   return (
     <>
       <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
+        style={styles.container}
       >
-        <View>
+        <View style={styles.infoContainer}>
           <TouchableOpacity
             activeOpacity={0.7}
             style={styles.taskButton}
@@ -87,34 +83,45 @@ export function TaskItem({
           </TouchableOpacity>
         </View>
 
-        {/* <TouchableOpacity
-          style={{ paddingHorizontal: 24 }}
-          onPress={() => removeTask(task.id)}
-        >
-          <Image source={trashIcon} />
-        </TouchableOpacity> */}
-        <View>
+        
+        <View style={styles.iconsContainer}>
           {isEditing ? (
             <TouchableOpacity onPress={handleCancelEditing}>
               <Icon name="x" size={24} color="#b2b2b2" />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
-              style={{ paddingHorizontal: 24 }}
+              
               onPress={handleStartEditing}
             >
               <Image source={edit} />
             </TouchableOpacity>
           )}
+          <View style={styles.iconsDivider}/>
+          <TouchableOpacity 
+            onPress={()=>removeTask(task.id)}
+            disabled={isEditing}
+          >
+              <Image source={trashIcon} style={{opacity: isEditing ? 0.2 : 1 }} />
+          </TouchableOpacity>
         </View>
       </View>
     </>
   );
 }
 const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  infoContainer:{
+    flex:1
+  },
+
   taskButton: {
     flex: 1,
-    paddingHorizontal: 24,
     paddingVertical: 15,
     marginBottom: 4,
     borderRadius: 4,
@@ -149,4 +156,16 @@ const styles = StyleSheet.create({
     textDecorationLine: "line-through",
     fontFamily: "Inter-Medium",
   },
+  iconsContainer:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 12,
+    paddingRight: 24
+  },
+  iconsDivider:{
+    width:1,
+    height: 24,
+    backgroundColor: 'rgba(196, 196, 196, 0.24)',
+    marginHorizontal:12
+  }
 });

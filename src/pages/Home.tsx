@@ -4,6 +4,10 @@ import { Alert, StyleSheet, View } from "react-native";
 import { Header } from "../components/Header";
 import { Task, TasksList } from "../components/TasksList";
 import { TodoInput } from "../components/TodoInput";
+export type EditTaskArgs = {
+  taskId: number;
+  taskNewTitle: string;
+};
 
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -38,6 +42,7 @@ export function Home() {
       " Tem certeza que você deseja remover esse item ?",
       [
         {
+          style: "destructive",
           text: "Sim",
           onPress: () => {
             const removedTask = tasks.filter((task) => task.id !== id);
@@ -45,10 +50,19 @@ export function Home() {
           },
         },
         {
+          style: "cancel",
           text: "Não",
         },
       ]
     );
+  }
+
+  function handleEditTask({ taskId, taskNewTitle }: EditTaskArgs) {
+    const updatedTasks = tasks.map((task) => ({ ...task }));
+    const findTask = updatedTasks.find((task) => task.id === taskId);
+    if (!findTask) return;
+    findTask.title = taskNewTitle;
+    setTasks(updatedTasks);
   }
 
   return (
@@ -58,6 +72,7 @@ export function Home() {
       <TodoInput addTask={handleAddTask} />
 
       <TasksList
+        editTask={handleEditTask}
         tasks={tasks}
         toggleTaskDone={handleToggleTaskDone}
         removeTask={handleRemoveTask}

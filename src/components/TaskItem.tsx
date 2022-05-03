@@ -55,9 +55,7 @@ export function TaskItem({
 
   return (
     <>
-      <View
-        style={styles.container}
-      >
+      <View style={styles.container}>
         <View style={styles.infoContainer}>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -67,10 +65,6 @@ export function TaskItem({
             <View style={task.done ? styles.taskMarkerDone : styles.taskMarker}>
               {task.done && <Icon name="check" size={12} color="#FFF" />}
             </View>
-
-            {/* <Text style={task.done ? styles.taskTextDone : styles.taskText}>
-              {task.title}
-            </Text> */}
 
             <TextInput
               value={taskNewTitleValue}
@@ -83,26 +77,25 @@ export function TaskItem({
           </TouchableOpacity>
         </View>
 
-        
         <View style={styles.iconsContainer}>
           {isEditing ? (
             <TouchableOpacity onPress={handleCancelEditing}>
               <Icon name="x" size={24} color="#b2b2b2" />
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity
-              
-              onPress={handleStartEditing}
-            >
+            <TouchableOpacity onPress={handleStartEditing}>
               <Image source={edit} />
             </TouchableOpacity>
           )}
-          <View style={styles.iconsDivider}/>
-          <TouchableOpacity 
-            onPress={()=>removeTask(task.id)}
+          <View style={styles.iconsDivider} />
+          <TouchableOpacity
+            onPress={() => removeTask(task.id)}
             disabled={isEditing}
           >
-              <Image source={trashIcon} style={{opacity: isEditing ? 0.2 : 1 }} />
+            <Image
+              source={trashIcon}
+              style={{ opacity: isEditing ? 0.2 : 1 }}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -110,14 +103,14 @@ export function TaskItem({
   );
 }
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
+  container: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
-  infoContainer:{
-    flex:1
+  infoContainer: {
+    flex: 1,
   },
 
   taskButton: {
@@ -156,16 +149,16 @@ const styles = StyleSheet.create({
     textDecorationLine: "line-through",
     fontFamily: "Inter-Medium",
   },
-  iconsContainer:{
-    flexDirection: 'row',
-    alignItems: 'center',
+  iconsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     paddingLeft: 12,
-    paddingRight: 24
+    paddingRight: 24,
   },
-  iconsDivider:{
-    width:1,
+  iconsDivider: {
+    width: 1,
     height: 24,
-    backgroundColor: 'rgba(196, 196, 196, 0.24)',
-    marginHorizontal:12
-  }
+    backgroundColor: "rgba(196, 196, 196, 0.24)",
+    marginHorizontal: 12,
+  },
 });
